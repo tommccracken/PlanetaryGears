@@ -1,0 +1,185 @@
+<!doctype html>
+
+<!--
+
+Planetary Gears - Demonstration Webpage
+
+Source repository (at time of writing):
+https://github.com/tommccracken/PlanetaryGears
+
+
+Copyright 2017 Thomas O. McCracken
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Planetary Gears Project - Demonstration</title>
+  <meta name="description" content="Planetary Gears Project - Demonstration" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+</head>
+
+<body style = "font-family: 'Roboto'; text-align: center;">
+  <div id="Container" style = "position: relative; width: 600px; margin: 0 auto;">
+    <h1>Planetary Gears Project </br>Demonstration</h1>
+    <a href="https://github.com/tommccracken/PlanetaryGears">Link to repository containing source, documentation and license for use</a>
+    <canvas id="SketchCanvas" width="350" height="350" style = "box-sizing: border-box; margin-top: 20px;">
+    </canvas>
+  </div>
+
+  <script type="text/javascript">
+    /*
+
+      Planetary Gears - Minified ES5 Planetary Gear Model Library (Minified and transpiled using Babel)
+
+      Source repository (at time of writing):
+      https://github.com/tommccracken/PlanetaryGears
+
+
+      Copyright 2017 Thomas O. McCracken
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+    */
+
+
+    "use strict";var _createClass=function(){function a(b,c){for(var e,d=0;d<c.length;d++)e=c[d],e.enumerable=e.enumerable||!1,e.configurable=!0,"value"in e&&(e.writable=!0),Object.defineProperty(b,e.key,e)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}();function _possibleConstructorReturn(a,b){if(!a)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return b&&("object"==typeof b||"function"==typeof b)?b:a}function _inherits(a,b){if("function"!=typeof b&&null!==b)throw new TypeError("Super expression must either be null or a function, not "+typeof b);a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,enumerable:!1,writable:!0,configurable:!0}}),b&&(Object.setPrototypeOf?Object.setPrototypeOf(a,b):a.__proto__=b)}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError("Cannot call a class as a function")}var PI=Math.PI;function isNumInteger(a){return!(a!==parseInt(a,10))}var AbstractGear=function a(b,c,d){_classCallCheck(this,a),this.tooth_pitch=b,this.gear_size=c,this.gear_speed=d,this.PCD=c*b/PI,this.position=0,this.mesh_correcction=0},InnerGear=function(a){function b(c,d,e){_classCallCheck(this,b);var f=_possibleConstructorReturn(this,(b.__proto__||Object.getPrototypeOf(b)).call(this,c,d,e));return f.hub_diameter=0.3*(f.PCD/2),f}return _inherits(b,a),b}(AbstractGear),OuterGear=function(a){function b(c,d,e){_classCallCheck(this,b);var f=_possibleConstructorReturn(this,(b.__proto__||Object.getPrototypeOf(b)).call(this,c,d,e));return f.outer_diameter=f.PCD+3*c,f}return _inherits(b,a),b}(AbstractGear),PlanetaryGear=function(){function a(b,c,d,e,f,g,h,j){_classCallCheck(this,a);var l,m,o,p,q,r,s=0;1==b?(l=c,m=d,o=l+2*m):2==b?(l=c,o=d,m=(o-l)/2):3==b?(m=c,o=d,l=o-2*m):Console.log("Error: The size_input_mode parameter is ivalid, only the integer values 1, 2, or 3 are valid."),1==e?(p=f,q=g,s=((l+m)*q-l*p)/m,r=((o-m)*q+m*s)/o):2==e?(p=f,r=g,q=(l*p+o*r)/(l+o),s=((l+m)*q-l*p)/m):3==e?(q=f,r=g,p=((l+o)*q-o*r)/l,s=((l+m)*q-l*p)/m):Console.log("Error: The speed_input_mode parameter is ivalid, only the integer values 1, 2, or 3 are valid."),isNumInteger((l+o)/j)||console.log("Warning: The expression [(sun size + ring size) / number of planets] must evaluate to an integer in order for the ring gear to be able to mesh with the planet gears"),this.sun=new InnerGear(h,l,p),this.ring=new OuterGear(h,o,r),this.carrier_speed=q,this.carrier_position=0,this.planets=[];for(var t=0;t<j;t++){this.planets[t]=new InnerGear(h,m,s);var u=this.carrier_position+2*t*PI/j,v=this.sun.gear_size/(2*PI)*u,w=v-Math.floor(v);this.planets[t].mesh_correcction=PI+u+(0.5+w)*(2*PI/this.planets[t].gear_size),this.planets[t].position=this.planets[t].mesh_correcction}this.carrier_pitch=this.sun.PCD+this.planets[0].PCD,this.ring.gear_size%2||(this.ring.mesh_correcction=0.5*(2*PI/this.ring.gear_size),this.ring.position=this.ring.mesh_correcction),console.log("New planetary gear created. Size input mode: "+b+", Sun size: "+l+", Planet size: "+m+", Ring size: "+o+" , Speed input mode: "+e+", Sun speed: "+p+" , Carrier speed: "+q+", Planet sspeed: "+s+", Ring speed: "+r)}return _createClass(a,[{key:"fixed_speed_update",value:function fixed_speed_update(b){if(0==!this.ring.gear_speed){var c=b/1e3/(2*(1/this.ring.gear_speed)*PI)%1;this.ring.position=2*PI*c+this.ring.mesh_correcction}if(0==!this.sun.gear_speed){var d=b/1e3/(2*(1/this.sun.gear_speed)*PI)%1;this.sun.position=2*PI*d}for(var f,e=0;e<this.planets.length;e++)if(f=this.planets[e],0==!f.gear_speed){var g=b/1e3/(2*(1/f.gear_speed)*PI)%1;f.position=2*PI*g+f.mesh_correcction}if(0==!this.carrier_speed){var h=b/1e3/(2*(1/this.carrier_speed)*PI)%1;this.carrier_position=2*PI*h}}}]),a}();
+
+  </script>
+
+  <script type="text/javascript">
+    /*
+
+      Planetary Gears - Demonstration Application Script
+
+      Source repository (at time of writing):
+      https://github.com/tommccracken/PlanetaryGears
+
+
+      Copyright 2017 Thomas O. McCracken
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+    */
+
+
+    function draw_basic_gear(cx, cy, gear) {
+      var n = gear.gear_size;
+      var theta = 2 * PI / n;
+      var theta_step = theta / 6;
+      var position = gear.position;
+      var rad_n = gear.PCD / 2;
+      var rad_i = rad_n - gear.tooth_pitch / 3;
+      var rad_o = rad_n + gear.tooth_pitch / 3;
+      var p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y, p5x, p5y, p6x, p6y = 0;
+      ctx.beginPath();
+      //ctx.moveTo(cx * draw_scaling_factor, world_size * draw_scaling_factor - cy * draw_scaling_factor);
+      for (var n_step = 0; n_step < n; n_step++) {
+        p1x = cx + rad_o * Math.cos(position + n_step * theta);
+        p1y = cy + rad_o * Math.sin(position + n_step * theta);
+        ctx.lineTo(p1x * draw_scaling_factor, world_size * draw_scaling_factor - p1y * draw_scaling_factor);
+        p2x = cx + rad_o * Math.cos(position + n_step * theta + theta_step);
+        p2y = cy + rad_o * Math.sin(position + n_step * theta + theta_step);
+        ctx.lineTo(p2x * draw_scaling_factor, world_size * draw_scaling_factor - p2y * draw_scaling_factor);
+        p3x = cx + rad_i * Math.cos(position + n_step * theta + 2 * theta_step);
+        p3y = cy + rad_i * Math.sin(position + n_step * theta + 2 * theta_step);
+        ctx.lineTo(p3x * draw_scaling_factor, world_size * draw_scaling_factor - p3y * draw_scaling_factor);
+        p4x = cx + rad_i * Math.cos(position + n_step * theta + 4 * theta_step);
+        p4y = cy + rad_i * Math.sin(position + n_step * theta + 4 * theta_step);
+        ctx.lineTo(p4x * draw_scaling_factor, world_size * draw_scaling_factor - p4y * draw_scaling_factor);
+        p5x = cx + rad_o * Math.cos(position + n_step * theta + 5 * theta_step);
+        p5y = cy + rad_o * Math.sin(position + n_step * theta + 5 * theta_step);
+        ctx.lineTo(p5x * draw_scaling_factor, world_size * draw_scaling_factor - p5y * draw_scaling_factor);
+        p6x = cx + rad_o * Math.cos(position + n_step * theta + 6 * theta_step);
+        p6y = cy + rad_o * Math.sin(position + n_step * theta + 6 * theta_step);
+        ctx.lineTo(p6x * draw_scaling_factor, world_size * draw_scaling_factor - p6y * draw_scaling_factor);
+      }
+      ctx.stroke();
+    }
+
+    function draw_basic_planetary_gear_set() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = '#191919';
+      // Draw sun
+      var cx = world_size / 2;
+      var cy = world_size / 2;
+      draw_basic_gear(cx, cy, planetary_gear.sun);
+      ctx.beginPath();
+      ctx.arc(world_size / 2 * draw_scaling_factor, world_size / 2 * draw_scaling_factor, planetary_gear.sun.hub_diameter * draw_scaling_factor, -planetary_gear.sun.position, -planetary_gear.sun.position + 2 * PI, false);
+      ctx.stroke();
+      // Draw ring
+      draw_basic_gear(cx, cy, planetary_gear.ring);
+      outer_diameter = planetary_gear.ring.outer_diameter;
+      ctx.beginPath();
+      ctx.arc(cx * draw_scaling_factor, world_size * draw_scaling_factor - cy * draw_scaling_factor, outer_diameter / 2 * draw_scaling_factor, -planetary_gear.ring.position, -planetary_gear.ring.position + 2 * PI, false);
+      ctx.stroke();
+      // Draw planets
+      var i = 0;
+      for (i = 0; i < planetary_gear.planets.length; i++) {
+        cx = (cx + planetary_gear.carrier_pitch / 2 * Math.cos(planetary_gear.carrier_position + i * 2 * PI / planetary_gear.planets.length));
+        cy = (cy + planetary_gear.carrier_pitch / 2 * Math.sin(planetary_gear.carrier_position + i * 2 * PI / planetary_gear.planets.length));
+        draw_basic_gear(cx, cy, planetary_gear.planets[i]);
+        ctx.beginPath();
+        ctx.arc(cx * draw_scaling_factor, world_size * draw_scaling_factor - cy * draw_scaling_factor, planetary_gear.planets[i].hub_diameter * draw_scaling_factor, -planetary_gear.planets[i].position, -planetary_gear.planets[i].position + 2 * PI, false);
+        ctx.stroke();
+        cx = world_size / 2;
+        cy = world_size / 2;
+      }
+    }
+
+    function app_loop() {
+      var time_elapsed = new Date().getTime() - start_time;
+      planetary_gear.fixed_speed_update(time_elapsed);
+      draw_basic_planetary_gear_set();
+      window.requestAnimationFrame(app_loop);
+    }
+
+    var canvas = document.getElementById("SketchCanvas");
+    var ctx = canvas.getContext("2d");
+    var planetary_gear = new PlanetaryGear(1, 34, 14, 1, 0, 0.5, 0.032, 6);
+    var draw_size = Math.min(canvas.width, canvas.height);
+    var world_size = planetary_gear.ring.outer_diameter * 1.05;
+    var draw_scaling_factor = draw_size / world_size;
+    draw_basic_planetary_gear_set();
+    var start_time = new Date().getTime();
+    window.requestAnimationFrame(app_loop);
+  </script>
+</body>
+
+</html>
