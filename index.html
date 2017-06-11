@@ -28,7 +28,7 @@ limitations under the License.
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Planetary Gears Project - Demonstration</title>
   <meta name="description" content="Planetary Gears Project - Demonstration" />
   <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
@@ -36,7 +36,8 @@ limitations under the License.
 
 <body style = "font-family: 'Roboto'; text-align: center;">
   <div id="Container" style = "position: relative; width: 600px; margin: 0 auto;">
-    <h1>Planetary Gears Project </br>Demonstration</h1>
+    <h1>Planetary Gears Project</h1>
+    <h1>Demonstration</h1>
     <a href="https://github.com/tommccracken/PlanetaryGears">Link to repository containing source, documentation and license for use</a>
     <canvas id="SketchCanvas" width="350" height="350" style = "box-sizing: border-box; margin-top: 20px;">
     </canvas>
@@ -134,7 +135,7 @@ limitations under the License.
 
     function draw_basic_planetary_gear_set() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 2;
       ctx.strokeStyle = '#191919';
       // Draw sun
       var cx = world_size / 2;
@@ -172,7 +173,7 @@ limitations under the License.
 
     var canvas = document.getElementById("SketchCanvas");
     var ctx = canvas.getContext("2d");
-    var planetary_gear = new PlanetaryGear(1, 34, 14, 1, 0, 0.5, 0.032, 6);
+    var planetary_gear = new PlanetaryGear(1, 34, 14, 1, -0.4, 0.5, 0.032, 6);
     var draw_size = Math.min(canvas.width, canvas.height);
     var world_size = planetary_gear.ring.outer_diameter * 1.05;
     var draw_scaling_factor = draw_size / world_size;

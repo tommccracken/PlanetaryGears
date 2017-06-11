@@ -1,7 +1,7 @@
 # Planetary Gears
 
 Copyright 2017 Thomas O. McCracken  
-[Link to source repository](https://github.com/tommccracken/PlanetaryGears)
+[Link to demo](https://tommccracken.github.io/PlanetaryGears/)
 
 NOTE: THIS IS A RELATIVELY NEW PROJECT AND AS SUCH IS VERY MUCH A WORK IN PROGRESS.
 
@@ -18,7 +18,7 @@ The key project files are as follows:
 - /dist/PlanetaryGearModel.ES5.min.js -
   This is a transpiled (ES5), and minified, version of the above mentioned library.
 
-- /demo/DemonstrationApplication.html - This is a simple demonstration that animates a modeled planetary gear using a canvas HTML5 element.
+- /index.html - This is a simple demonstration that animates a modeled planetary gear using a canvas HTML5 element.
 
 ## Usage
 
@@ -80,7 +80,7 @@ This will update the positions of the components within the overall model based 
 
 ### Animation
 
-Whilst animation of planetary gear trains is not the primary purpose of this project, the DemonstrationApplication.html file demonstrates how various model parameters can be accessed in order for an application to animate the planetary gear train.
+Whilst animation of planetary gear trains is not the primary purpose of this project, the index.html file demonstrates how various model parameters can be accessed in order for an application to animate the planetary gear train.
 
 Note: The animation example in the DemonstrationApplication.html file does not accurately model gears using involute profiles; instead it simply approximates the shape of a gear tooth with a simple trapezium profile.
 
@@ -111,3 +111,6 @@ and ring gear respectively.
 - **NsWs + NrWr = (Ns+Nr)Wc** (Equation 4)
 
   This can be derived from Equations 2 and 3 and relates the size of the sun gear, ring gear and carrier.
+
+
+[Link to source repository](https://github.com/tommccracken/PlanetaryGears)
