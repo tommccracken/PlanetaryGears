@@ -5,12 +5,10 @@ Copyright 2017 Thomas O. McCracken
 
 NOTE: THIS IS A RELATIVELY NEW PROJECT AND AS SUCH IS VERY MUCH A WORK IN PROGRESS.
 
-## Introduction
-This project is aimed at developing a Javascript library to model simple [Planetary (Epicyclic) Gear Trains](https://en.wikipedia.org/wiki/Epicyclic_gearing) for animation purposes.
+## About
+This project is aimed at developing a Javascript library to model simple [Planetary (Epicyclic) Gear Trains](https://en.wikipedia.org/wiki/Epicyclic_gearing) for animation purposes. In particular the library supports modeling the positions and velocities of planetary gear trains comprising one inner "sun" gear, one outer "ring" gear and one or more central "planet" gears (within a carrier).
 
-In particular the library supports modeling the positions and velocities of planetary gear trains comprising one inner "sun" gear, one outer "ring" gear and one or more central "planet" gears (within a carrier).
-
-The key project files are as follows:
+The library, including this demonstration/documentation web page, is hosted on GitHub and licensed under the permissive open source Apache 2.0 License. The key project files, located within the GitHub repository, are as follows:
 
 - /lib/PlanetaryGearModel.js -
   This is the library file that is used to model the planetary gear train. This library makes use of some ECMA2015 features including the "class" and "let" keywords.
@@ -18,7 +16,7 @@ The key project files are as follows:
 - /dist/PlanetaryGearModel.ES5.min.js -
   This is a transpiled (ES5), and minified, version of the above mentioned library.
 
-- /index.html - This is a simple demonstration that animates a modeled planetary gear using a canvas HTML5 element.
+The project demonstration/documentation web page is located within the repository /docs/ folder. In this demonstration, a planetary gear train is modeled and animated using an HTML5 canvas element.
 
 ## Usage
 
@@ -81,8 +79,9 @@ This will update the positions of the components within the overall model based 
 ### Animation
 
 Whilst animation of planetary gear trains is not the primary purpose of this project, the index.html file demonstrates how various model parameters can be accessed in order for an application to animate the planetary gear train.
+Whilst animation of planetary gear trains is not the primary purpose of this library, the demonstration/documentation web page demonstrates how various model parameters can be accessed in order for an application to animate the modeled planetary gear train.
 
-Note: The animation example in the DemonstrationApplication.html file does not accurately model gears using involute profiles; instead it simply approximates the shape of a gear tooth with a simple trapezium profile.
+Note: The animation example in the demonstration/documentation web page does not accurately model gears using involute profiles; it only approximates the shape of a gear tooth with a simple trapezium profile.
 
 ## Theory
 
@@ -94,23 +93,15 @@ and ring gear respectively.
 
 ### Size calculations:
 
-- **Nr = Ns + 2Np** (Equation 1)
-
-  This is a geometric constraint based on the fact that the size of the ring gear must be equal to the size of the sun gear plus twice the size of the planet gear(s).
+- **Nr = Ns + 2Np** (Equation 1) - This is a geometric constraint based on the fact that the size of the ring gear must be equal to the size of the sun gear plus twice the size of the planet gear(s).
 
 ### Speed calculations:
 
-- **NsWs + NpWp - (Ns + Np)Wc = 0** (Equation 2)
+- **NsWs + NpWp - (Ns + Np)Wc = 0** (Equation 2) - This is a velocity constraint that requires the tangential velocity between the sun gear and a planet gear, at the point of contact, to be equal.
 
-  This is a velocity constraint that requires the tangential velocity between the sun gear and a planet gear, at the point of contact, to be equal.
+- **NrWr - NpWp - (Nr - Np)Wc = 0** (Equation 3) - This is a velocity constraint that requires the tangential velocity between the ring gear and a planet gear, at the point of contact, to be equal.
 
-- **NrWr - NpWp - (Nr - Np)Wc = 0** (Equation 3)
-
-  This is a velocity constraint that requires the tangential velocity between the ring gear and a planet gear, at the point of contact, to be equal.
-
-- **NsWs + NrWr = (Ns+Nr)Wc** (Equation 4)
-
-  This can be derived from Equations 2 and 3 and relates the size of the sun gear, ring gear and carrier.
+- **NsWs + NrWr = (Ns+Nr)Wc** (Equation 4) - This can be derived from Equations 2 and 3 and relates the size of the sun gear, ring gear and carrier.
 
 
 [Link to source repository](https://github.com/tommccracken/PlanetaryGears)
