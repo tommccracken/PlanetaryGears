@@ -1,6 +1,6 @@
 /*
 
-  Planetary Gears - Minified ES5 Planetary Gear Model Library (minified and transpiled using Babel)
+  Planetary Gears - Demonstration Sketch Script
 
   Source repository (at time of writing):
   https://github.com/tommccracken/PlanetaryGears
@@ -25,17 +25,13 @@
 
 var canvas = document.getElementById("SketchCanvas");
 var ctx = canvas.getContext("2d");
-var size_input_mode = 1;
-var numner_of_planets = 6;
-var planetary_gear = new PlanetaryGear(size_input_mode, 30, 18, 1, -0.5, 0.5, 0.032, 6);
-var sun_size = planetary_gear.sun.gear_size;
-var ring_size = planetary_gear.ring.gear_size;
-var planet_size = planetary_gear.planets[0].gear_size;
+var planetary_gear = new PlanetaryGear(1, 28, 17, 1, -0.4, 0.4, 0.032, 5);
 var draw_size = Math.min(canvas.width, canvas.height);
 var world_size = planetary_gear.ring.outer_diameter * 1.05;
 var draw_scaling_factor = draw_size / world_size;
 var debounce;
 var start_time = 0;
+var time_stamp;
 
 function draw_basic_gear(cx, cy, gear) {
   var n = gear.gear_size;
@@ -137,7 +133,7 @@ function randomise() {
     planetary_gear = new PlanetaryGear(1, sun_size, planet_size, 1, sun_speed, carrier_speed, 0.032, number_of_planets);
     world_size = planetary_gear.ring.outer_diameter * 1.05;
     draw_scaling_factor = draw_size / world_size;
-    start_time = new Date().getTime();
+    start_time = Date.now();
   } else {
     randomise();
   }
@@ -157,6 +153,6 @@ $(window).resize(function() {
 $(document).ready(function() {
   resize_canvas();
   draw_basic_planetary_gear_set();
-  start_time = new Date().getTime();
+  start_time = Date.now();
   window.requestAnimationFrame(app_loop);
 });
