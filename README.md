@@ -1,11 +1,11 @@
 # Planetary Gears
 
-Copyright 2017 Thomas O. McCracken  
-[Link to demo](https://tommccracken.github.io/PlanetaryGears/)
-
-NOTE: THIS IS A RELATIVELY NEW PROJECT AND AS SUCH IS VERY MUCH A WORK IN PROGRESS.
+A Javascript library for modelling [Planetary (Epicyclic) Gear Trains](https://en.wikipedia.org/wiki/Epicyclic_gearing) for animation purposes. [Link ](https://tommccracken.github.io/PlanetaryGears/) to demonstration.
 
 ## About
+
+NOTE: THIS IS A RELATIVELY NEW PROJECT AND AS SUCH IS A WORK IN PROGRESS.
+
 This project is aimed at developing a Javascript library to model simple [Planetary (Epicyclic) Gear Trains](https://en.wikipedia.org/wiki/Epicyclic_gearing) for animation purposes. In particular the library supports modeling the positions and velocities of planetary gear trains comprising one inner "sun" gear, one outer "ring" gear and one or more central "planet" gears (within a carrier).
 
 The library, including this demonstration/documentation web page, is hosted on GitHub and licensed under the permissive open source Apache 2.0 License. The key project files, located within the GitHub repository, are as follows:
@@ -103,5 +103,6 @@ and ring gear respectively.
 
 - **NsWs + NrWr = (Ns+Nr)Wc** (Equation 4) - This can be derived from Equations 2 and 3 and relates the size of the sun gear, ring gear and carrier.
 
-
 [Link to source repository](https://github.com/tommccracken/PlanetaryGears)
+
+Copyright 2017 Thomas O. McCracken  
