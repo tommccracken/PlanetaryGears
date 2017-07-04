@@ -1,6 +1,8 @@
 # Planetary Gears
 
-A Javascript library for modelling [Planetary (Epicyclic) Gear Trains](https://en.wikipedia.org/wiki/Epicyclic_gearing) for animation purposes. [Link ](https://tommccracken.github.io/PlanetaryGears/) to demonstration.
+A Javascript library for modelling [Planetary (Epicyclic) Gear Trains](https://en.wikipedia.org/wiki/Epicyclic_gearing) for animation purposes.
+
+[Link ](https://tommccracken.github.io/PlanetaryGears/) to demonstration.
 
 ## About
 
