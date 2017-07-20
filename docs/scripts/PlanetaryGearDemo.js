@@ -68,7 +68,7 @@ function draw_basic_gear(cx, cy, gear) {
 
 function draw_basic_planetary_gear_set() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.lineWidth = 2;
+  ctx.lineWidth = Math.max(1, Math.round(draw_size * 0.005));
   ctx.strokeStyle = '#191919';
   // Draw sun
   var cx = world_size / 2;
@@ -84,8 +84,7 @@ function draw_basic_planetary_gear_set() {
   ctx.arc(cx * draw_scaling_factor, world_size * draw_scaling_factor - cy * draw_scaling_factor, outer_diameter / 2 * draw_scaling_factor, -planetary_gear.ring.position, -planetary_gear.ring.position + 2 * PI, false);
   ctx.stroke();
   // Draw planets
-  var i = 0;
-  for (i = 0; i < planetary_gear.planets.length; i++) {
+  for (var i = 0; i < planetary_gear.planets.length; i++) {
     cx = (cx + planetary_gear.carrier_pitch / 2 * Math.cos(planetary_gear.carrier_position + i * 2 * PI / planetary_gear.planets.length));
     cy = (cy + planetary_gear.carrier_pitch / 2 * Math.sin(planetary_gear.carrier_position + i * 2 * PI / planetary_gear.planets.length));
     draw_basic_gear(cx, cy, planetary_gear.planets[i]);
@@ -120,17 +119,43 @@ function randomise() {
   var gear_size_max = 30;
   var planets_min = 1;
   var planets_max = 8;
-  var gear_speed_max = 1.5;
-  var gear_speed_min = -1.5;
+  var gear_speed_max = 1.7;
+  var gear_speed_min = -1.7;
   var sun_size = Math.round(Math.random() * (gear_size_max - gear_size_min) + gear_size_min);
-  var sun_speed = Math.random() * (gear_speed_max - gear_speed_min) + gear_speed_min;
   var planet_size = Math.round(Math.random() * (gear_size_max - gear_size_min) + gear_size_min);
-  var carrier_speed = Math.random() * (gear_speed_max - gear_speed_min) + gear_speed_min;
-  var ring_size = sun_size + 2 * planet_size;
   var number_of_planets = Math.round(Math.random() * (planets_max - planets_min) + planets_min);
-  var n_max = (Math.PI) / (Math.asin((planet_size + 3) / (sun_size + planet_size)));
-  if (is_num_integer((sun_size + (sun_size + 2 * planet_size)) / number_of_planets) && n_max > number_of_planets) {
-    planetary_gear = new PlanetaryGear(1, sun_size, planet_size, 1, sun_speed, carrier_speed, 0.032, number_of_planets);
+  var ring_size = sun_size + 2 * planet_size;
+  // Maximum allowable number of planet gears to prevent overcrowding
+  var planets_max_allowable = (Math.PI) / (Math.asin((planet_size + 3) / (sun_size + planet_size)));
+  // Randomise the angular velocities of the gear train components
+  var speed_A = Math.random() * (gear_speed_max - gear_speed_min) + gear_speed_min;
+  var speed_B = Math.random() * (gear_speed_max - gear_speed_min) + gear_speed_min;
+  // Select one of the gear train components to be fixed on average half of the time
+  if (Math.random() > 0.5) {
+    if (Math.random() > 0.5) {
+      speed_A = 0;
+    } else {
+      speed_B = 0;
+    }
+  }
+  if (is_num_integer((sun_size + (sun_size + 2 * planet_size)) / number_of_planets) && planets_max_allowable > number_of_planets) {
+    var random_variable = Math.random();
+    if (random_variable < 0.033) {
+      planetary_gear = new PlanetaryGear(1, sun_size, planet_size, 1, speed_A, speed_B, 0.032, number_of_planets);
+      if ((planetary_gear.ring.gear_speed > gear_speed_max) || (planetary_gear.ring.gear_speed < gear_speed_min)) {
+        randomise();
+      }
+    } else if (random_variable < 0.66) {
+      planetary_gear = new PlanetaryGear(1, sun_size, planet_size, 2, speed_A, speed_B, 0.032, number_of_planets);
+      if ((planetary_gear.carrier_speed > gear_speed_max) || (planetary_gear.carrier_speed < gear_speed_min)) {
+        randomise();
+      }
+    } else {
+      planetary_gear = new PlanetaryGear(1, sun_size, planet_size, 3, speed_A, speed_B, 0.032, number_of_planets);
+      if ((planetary_gear.sun.gear_speed > gear_speed_max) || (planetary_gear.sun.gear_speed < gear_speed_min)) {
+        randomise();
+      }
+    }
     world_size = planetary_gear.ring.outer_diameter * 1.05;
     draw_scaling_factor = draw_size / world_size;
     start_time = Date.now();

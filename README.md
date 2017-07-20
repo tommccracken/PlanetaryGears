@@ -13,7 +13,7 @@ This project is aimed at developing a Javascript library to model simple [Planet
 The library, including this demonstration/documentation web page, is hosted on GitHub and licensed under the permissive open source Apache 2.0 License. The key project files, located within the GitHub repository, are as follows:
 
 - /lib/PlanetaryGearModel.js -
-  This is the library file that is used to model the planetary gear train. This library makes use of some ECMA2015 features including the "class" and "let" keywords.
+  This is the library file that is used to model the planetary gear train. This library makes use of some ECMA2015+ features including the "class" and "let" keywords.
 
 - /dist/PlanetaryGearModel.ES5.min.js -
   This is a transpiled (ES5), and minified, version of the above mentioned library.
@@ -76,22 +76,19 @@ The following method can be called to update the positions of the components wit
     planetary_gear.fixed_speed_update(elapsed_time);
   ```
 
-This will update the positions of the components within the overall model based on the total time that has elapsed since starting the simulation. The parameter "elapsed_time" needs to be passed to the method. This assumes that the modeled components travel at a fixed speed.
+This will update the positions of the components within the overall model based on the total time that has elapsed since the beginning of the simulation. The parameter "elapsed_time" needs to be passed to the method. This assumes that the modeled components travel at a fixed speed.
 
 ### Animation
 
-Whilst animation of planetary gear trains is not the primary purpose of this project, the index.html file demonstrates how various model parameters can be accessed in order for an application to animate the planetary gear train.
-Whilst animation of planetary gear trains is not the primary purpose of this library, the demonstration/documentation web page demonstrates how various model parameters can be accessed in order for an application to animate the modeled planetary gear train.
+Whilst animation of planetary gear trains is not the primary purpose of this project, the demonstration/documentation web page files demonstrate how various model parameters can be accessed in order for an application to animate the planetary gear train.
 
 Note: The animation example in the demonstration/documentation web page does not accurately model gears using involute profiles; it only approximates the shape of a gear tooth with a simple trapezium profile.
 
 ## Theory
 
-The library uses the following equations to solve for the unknown size and speed variables based on the known variables and the particular size and speed input modes that have been selected.
+The library uses the following equations to determine the unknown size and speed variables based on the known variables and the particular size and speed input modes that have been selected.
 
-With regard to the following equations, the variables Ws, Wp, Wc and Wr represent the angular velocities of the sun gear, planet gear(s)
-, carrier, and ring gear respectively and the variables Ns, Np and Nr represent the sizes (numbers of teeth) of the sun gear, planet gear(s)
-and ring gear respectively.
+With regard to the following equations, the variables Ws, Wp, Wc and Wr represent the angular velocities of the sun gear, planet gear(s), carrier, and ring gear respectively and the variables Ns, Np and Nr represent the sizes (numbers of teeth) of the sun gear, planet gear(s) and ring gear respectively.
 
 ### Size calculations:
 
@@ -103,7 +100,7 @@ and ring gear respectively.
 
 - **NrWr - NpWp - (Nr - Np)Wc = 0** (Equation 3) - This is a velocity constraint that requires the tangential velocity between the ring gear and a planet gear, at the point of contact, to be equal.
 
-- **NsWs + NrWr = (Ns+Nr)Wc** (Equation 4) - This can be derived from Equations 2 and 3 and relates the size of the sun gear, ring gear and carrier.
+- **NsWs + NrWr = (Ns+Nr)Wc** (Equation 4) - This can be derived from Equations 2 and 3 and relates the sizes of the sun and ring gears to the speeds of the sun gear, ring gear and planet carrier.
 
 [Link to source repository](https://github.com/tommccracken/PlanetaryGears)
 
