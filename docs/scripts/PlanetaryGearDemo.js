@@ -33,6 +33,11 @@ var debounce;
 var start_time = 0;
 var time_stamp;
 
+function get_time() {
+  //return performance.now();
+  return Date.now();
+}
+
 function draw_basic_gear(cx, cy, gear) {
   var n = gear.gear_size;
   var theta = 2 * PI / n;
@@ -98,7 +103,7 @@ function draw_basic_planetary_gear_set() {
 }
 
 function app_loop() {
-  var time_elapsed = new Date().getTime() - start_time;
+  var time_elapsed = get_time() - start_time;
   planetary_gear.fixed_speed_update(time_elapsed);
   draw_basic_planetary_gear_set();
   window.requestAnimationFrame(app_loop);
@@ -158,7 +163,7 @@ function randomise() {
     }
     world_size = planetary_gear.ring.outer_diameter * 1.05;
     draw_scaling_factor = draw_size / world_size;
-    start_time = Date.now();
+    start_time = get_time();
   } else {
     randomise();
   }
@@ -178,6 +183,6 @@ $(window).resize(function() {
 $(document).ready(function() {
   resize_canvas();
   draw_basic_planetary_gear_set();
-  start_time = Date.now();
+  start_time = get_time();
   window.requestAnimationFrame(app_loop);
 });

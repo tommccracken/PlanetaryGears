@@ -1,12 +1,10 @@
 # Planetary Gears
 
-A Javascript library for modelling [Planetary (Epicyclic) Gear Trains](https://en.wikipedia.org/wiki/Epicyclic_gearing) for animation purposes.
+A Javascript library for modelling Planetary (Epicyclic) Gear Trains for animation purposes.
 
 [Link ](https://tommccracken.github.io/PlanetaryGears/) to demonstration.
 
 ## About
-
-NOTE: THIS IS A RELATIVELY NEW PROJECT AND AS SUCH IS A WORK IN PROGRESS.
 
 This project is aimed at developing a Javascript library to model simple [Planetary (Epicyclic) Gear Trains](https://en.wikipedia.org/wiki/Epicyclic_gearing) for animation purposes. In particular the library supports modeling the positions and velocities of planetary gear trains comprising one inner "sun" gear, one outer "ring" gear and one or more central "planet" gears (within a carrier).
 
@@ -86,9 +84,7 @@ Note: The animation example in the demonstration/documentation web page does not
 
 ## Theory
 
-The library uses the following equations to determine the unknown size and speed variables based on the known variables and the particular size and speed input modes that have been selected.
-
-With regard to the following equations, the variables Ws, Wp, Wc and Wr represent the angular velocities of the sun gear, planet gear(s), carrier, and ring gear respectively and the variables Ns, Np and Nr represent the sizes (numbers of teeth) of the sun gear, planet gear(s) and ring gear respectively.
+The library uses the following equations to determine the unknown size and speed variables based on the known variables and the particular size and speed input modes that have been selected. The variables Ws, Wp, Wc and Wr represent the angular velocities of the sun gear, planet gear(s), carrier, and ring gear respectively and the variables Ns, Np and Nr represent the sizes (numbers of teeth) of the sun gear, planet gear(s) and ring gear respectively.
 
 ### Size calculations:
 
@@ -101,6 +97,8 @@ With regard to the following equations, the variables Ws, Wp, Wc and Wr represen
 - **NrWr - NpWp - (Nr - Np)Wc = 0** (Equation 3) - This is a velocity constraint that requires the tangential velocity between the ring gear and a planet gear, at the point of contact, to be equal.
 
 - **NsWs + NrWr = (Ns+Nr)Wc** (Equation 4) - This can be derived from Equations 2 and 3 and relates the sizes of the sun and ring gears to the speeds of the sun gear, ring gear and planet carrier.
+
+NOTE: THIS IS A RELATIVELY NEW PROJECT AND AS SUCH IS A WORK IN PROGRESS.
 
 [Link to source repository](https://github.com/tommccracken/PlanetaryGears)
 
