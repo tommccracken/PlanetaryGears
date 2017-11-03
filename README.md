@@ -8,7 +8,7 @@ A Javascript library for modelling Planetary (Epicyclic) Gear Trains for animati
 
 This project is aimed at developing a Javascript library to model simple [Planetary (Epicyclic) Gear Trains](https://en.wikipedia.org/wiki/Epicyclic_gearing) for animation purposes. In particular the library supports modeling the positions and velocities of planetary gear trains comprising one inner "sun" gear, one outer "ring" gear and one or more central "planet" gears (within a carrier).
 
-The library, including this demonstration/documentation web page, is hosted on GitHub and licensed under the permissive open source Apache 2.0 License. The key project files, located within the GitHub repository, are as follows:
+The library, including the demonstration/documentation web page, is hosted on GitHub and licensed under the permissive open source Apache 2.0 License. The key project files, located within the GitHub repository, are as follows:
 
 - /lib/PlanetaryGearModel.js -
   This is the library file that is used to model the planetary gear train. This library makes use of some ECMA2015+ features including the "class" and "let" keywords.
@@ -100,6 +100,6 @@ The library uses the following equations to determine the unknown size and speed
 
 NOTE: THIS IS A RELATIVELY NEW PROJECT AND AS SUCH IS A WORK IN PROGRESS.
 
-[Link to source repository](https://github.com/tommccracken/PlanetaryGears)
+[Link](https://github.com/tommccracken/PlanetaryGears) to source repository
 
 Copyright 2017 Thomas O. McCracken  
